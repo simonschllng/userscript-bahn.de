@@ -5,6 +5,8 @@
 // @description  Faster and easier export of calendar entries, also for Google Calendar.
 // @author       Simon Schiling
 // @match        http://reiseauskunft.bahn.de/bin/query2.exe/dn?*
+// @match        http://reiseauskunft.bahn.de/bin/query1.exe/dn?*
+// @match        http://reiseauskunft.bahn.de/bin/query.exe/dn?*
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
@@ -20,7 +22,8 @@ for(var i = 0; i < rows.length; i++) {
 
   a = row.getElementsByTagName('a')[0];
   url = a.href;
-  connection = /\[id=([^\]]+)\]/.exec(a.rel)[1];
+  connection=a.rel
+  connection = /linkDtl([^\s]+)/.exec(a.id)[1];
   urlSegments = {};
   url.substr(url.indexOf('?') + 1).split('&').forEach(function (val) {
     var elem = val.split('=');
